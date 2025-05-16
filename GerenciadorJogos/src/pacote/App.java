@@ -85,23 +85,23 @@ public class App {
                     int opcaoJogo = sc.nextInt();
 
                     if (opcaoJogo == 1){ // Chama método que cadastra um jogo no sistema
-
+                        Jogo.cadastrarJogo();
                     }
 
                     else if(opcaoJogo == 2){ // Chama método que remove um jogo do sistema
-
+                        Jogo.removerJogo();
                     }
 
                     else if(opcaoJogo == 3){ // Chama método que lista jogos DISPONIVEIS
-
+                        Jogo.listarJogosDisponiveis();
                     }
 
                     else if (opcaoJogo == 4){ // Chama método que lista jogos INDISPONIVEIS
-
+                        Jogo.listarJogosIndisponiveis();
                     }
 
                     else if(opcaoJogo == 5){ // Chama método que busca um jogo específico cadastrado no sistema
-
+                        Jogo.buscaJogo();
                     }
 
                     else if(opcaoJogo == 6){ // Volta para o menu principal

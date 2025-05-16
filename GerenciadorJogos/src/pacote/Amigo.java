@@ -31,6 +31,7 @@ public class Amigo {
         System.out.println("Informe o nickname do amigo: ");
         String nicknameAmigo = sc.nextLine();
         amigos.add(new Amigo(nomeAmigo, nicknameAmigo));
+        System.out.println("Amigo cadastrado com sucesso.");
     }
 
     public static void removerAmigo(){ // Método que remove amigos
@@ -41,6 +42,7 @@ public class Amigo {
             Amigo amigo = amigos.get(i);
             if (amigo.getNome().equals(remover)){ // Utilizei EQUALS por conta de ser comparação de strings
                 amigos.remove(i);
+                System.out.println("Amigo removido com sucesso.");
             }
         }
     }
@@ -50,5 +52,9 @@ public class Amigo {
             Amigo amigo = amigos.get(i);
             System.out.println("Nome: " + amigo.getNome() + " | Nickname: " + amigo.getNickname());
         }
+    }
+
+    public static void jogosPossuidos(){ // Método que mostra os jogos de um amigo específico
+
     }
 }
