@@ -6,6 +6,7 @@ public class Amigo {
     // Atributos da classe amigo
     private String nome;
     private String nickname;
+    private String [] jogosPossuidos  = new String[10]; 
 
     // Getters, setters e constructor
     public String getNome() {
@@ -14,6 +15,23 @@ public class Amigo {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public void printJogosPossuidos() {
+        for(int i = 0; i<jogosPossuidos.length; ++i){
+            System.out.println(jogosPossuidos[i]);
+        }
+    }
+
+    public void adicionarJogosPossuidos(String jogo){
+        String[] novoArray = new String[jogosPossuidos.length + 1];
+
+        for (int i = 0; i < jogosPossuidos.length; i++) {
+            novoArray[i] = jogosPossuidos[i];
+        }
+
+        novoArray[jogosPossuidos.length] = jogo;
+        jogosPossuidos = novoArray;
     }
 
     public Amigo(String nome, String nickname){
@@ -54,7 +72,17 @@ public class Amigo {
         }
     }
 
-    public static void jogosPossuidos(){ // Método que mostra os jogos de um amigo específico
-
+    public static void listarJogosPossuidos(){ // Método que mostra os jogos de um amigo específico
+        System.out.println("Informe o nome do amigo que deseja listar os jogos: ");
+        String nomeAmigo = sc.nextLine();
+        for(int i = 0; i<amigos.size(); ++i){
+            Amigo amigo = amigos.get(i);
+            if(nomeAmigo.equals(amigo.getNome())){
+                System.out.println("Jogos do " + amigo.getNome() + ":");
+                printJogosPossuidos();
+            } else {
+                System.out.println("O nome informado não corresponde a um amigo cadastrado.");
+            }
+        }
     }
 }

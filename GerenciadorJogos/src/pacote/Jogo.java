@@ -67,6 +67,7 @@ public class Jogo {
             Amigo dono = Amigo.amigos.get(i); 
             if(donoJogo.equals(dono.getNome())){
                 jogos.add(new Jogo(nomeJogo, generoJogo, descricaoJogo, disponibilidadeJogo, donoJogo));
+                dono.adicionarJogosPossuidos(nomeJogo);
                 System.out.println("Jogo cadastrado com sucesso.");  
             } else {
                 System.out.println("Não foi encontrado um amigo cadastrado com o nome do dono do Jogo acima.");
@@ -89,6 +90,12 @@ public class Jogo {
 
     public static void listarJogosDisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
         System.out.println("\n");
+        
+        if (jogos.isEmpty()) {
+            System.out.println("Nenhum jogo cadastrado.");
+            return;
+        }
+
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == true){
@@ -99,6 +106,12 @@ public class Jogo {
 
     public static void listarJogosIndisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
         System.out.println("\n");
+
+        if( jogos.isEmpty()) {
+            System.out.println("Nenhum jogo cadastrado.");
+            return;
+        }
+
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == false){

@@ -64,7 +64,7 @@ public class App {
                     }
 
                     else if(opcaoAmigo == 4){ // Chama método que mostra jogos cadastrados de um amigo no sistema
-                        
+                        Amigo.listarJogosPossuidos();
                     }
 
                     else if(opcaoAmigo == 5){ // Volta para o menu principal
