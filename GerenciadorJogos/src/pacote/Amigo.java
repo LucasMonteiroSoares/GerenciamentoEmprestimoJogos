@@ -25,7 +25,7 @@ public class Amigo {
     static Scanner sc = new Scanner(System.in);
 
     public static void cadastrarAmigo(){ // Método que cadastra novos amigos
-        System.out.println("\n Cadastrando amigo...");
+        System.out.println("\nCadastrando amigo...");
         System.out.println("Informe o nome do amigo: ");
         String nomeAmigo = sc.nextLine();
         System.out.println("Informe o nickname do amigo: ");

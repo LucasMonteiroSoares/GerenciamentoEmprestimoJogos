@@ -1,5 +1,3 @@
-//Testando GIT
-
 package pacote;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -64,8 +62,16 @@ public class Jogo {
         Boolean disponibilidadeJogo = (disponivel == 's') ?  true : false;
         System.out.println("Informe o nome do dono do jogo: ");
         String donoJogo = sc.nextLine();
-        jogos.add(new Jogo(nomeJogo, generoJogo, descricaoJogo, disponibilidadeJogo, donoJogo));
-        System.out.println("Jogo cadastrado com sucesso.");
+
+        for(int i = 0; i<Amigo.amigos.size(); ++i){
+            Amigo dono = Amigo.amigos.get(i); 
+            if(donoJogo.equals(dono.getNome())){
+                jogos.add(new Jogo(nomeJogo, generoJogo, descricaoJogo, disponibilidadeJogo, donoJogo));
+                System.out.println("Jogo cadastrado com sucesso.");  
+            } else {
+                System.out.println("Não foi encontrado um amigo cadastrado com o nome do dono do Jogo acima.");
+            }
+        }
     }
 
     public static void removerJogo(){ // Método que remove jogos cadastrados no sistema
@@ -82,6 +88,7 @@ public class Jogo {
     }
 
     public static void listarJogosDisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
+        System.out.println("\n");
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == true){
@@ -91,6 +98,7 @@ public class Jogo {
     }
 
     public static void listarJogosIndisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
+        System.out.println("\n");
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == false){
@@ -102,6 +110,7 @@ public class Jogo {
     public static void buscaJogo(){ // Método que busca jogo pelo nome
         System.out.println("Informe o nome do jogo que deseja buscar: ");
         String nomeJogo = sc.nextLine();
+        System.out.println("\n");
         for (int i = 0; i<jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             String msgDisponibilidade = saidaDisponibilidade(jogo);

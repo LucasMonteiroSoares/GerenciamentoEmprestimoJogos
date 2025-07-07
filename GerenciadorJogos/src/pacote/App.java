@@ -64,7 +64,7 @@ public class App {
                     }
 
                     else if(opcaoAmigo == 4){ // Chama método que mostra jogos cadastrados de um amigo no sistema
-
+                        
                     }
 
                     else if(opcaoAmigo == 5){ // Volta para o menu principal
@@ -112,9 +112,11 @@ public class App {
                         System.out.println("Opção inválida!");
                     }
                 }
+                break;
                 
                 case 3:
                 rodando = false;
+                System.out.println("Encerrando programa...");
                 break;
 
                 default:
