@@ -37,18 +37,15 @@ public class Jogo {
         return dono;
     }
 
-    public static String saidaDisponibilidade(Jogo jogo){ // Método que escreve uma mensagem para indicar disponibilidade com base no atributo boolean
-        if (jogo.getDisponibilidade() == true){
-            return "Jogo disponível para troca!";
-        } else {
-            return "Jogo indisponível para troca.";
-        }
-    }
-
     public static ArrayList <Jogo> jogos = new ArrayList<>(); // ArrayList responsável por armazenar os objetos da classe Jogo
     static Scanner sc = new Scanner(System.in);
 
     public static void cadastrarJogo(){ // Método que cadastra novo jogo no sistema
+        if (Amigo.amigos.size() == 0){
+            System.out.println("Cadastre pelo menos um amigo antes de cadastrar jogos.");
+            return;
+        }
+
         System.out.println("\nCadastrando jogo...");
         System.out.println("Informe o nome do jogo: ");
         String nomeJogo = sc.nextLine();
@@ -62,15 +59,16 @@ public class Jogo {
         Boolean disponibilidadeJogo = (disponivel == 's') ?  true : false;
         System.out.println("Informe o nome do dono do jogo: ");
         String donoJogo = sc.nextLine();
-
+            
         for(int i = 0; i<Amigo.amigos.size(); ++i){
             Amigo dono = Amigo.amigos.get(i); 
             if(donoJogo.equals(dono.getNome())){
                 jogos.add(new Jogo(nomeJogo, generoJogo, descricaoJogo, disponibilidadeJogo, donoJogo));
                 dono.adicionarJogosPossuidos(nomeJogo);
                 System.out.println("Jogo cadastrado com sucesso.");  
-            } else {
-                System.out.println("Não foi encontrado um amigo cadastrado com o nome do dono do Jogo acima.");
+                return;
+            } else if (i == Amigo.amigos.size() - 1 && donoJogo.equals(dono.getNome()) == false){
+                System.out.println("Não foi encontrado um amigo cadastrado com o nome do dono do jogo acima.");
             }
         }
     }
@@ -84,18 +82,29 @@ public class Jogo {
             if (jogo.getNome().equals(remover)){ // Utilizei EQUALS por conta de ser comparação de strings
                 jogos.remove(i);
                 System.out.println("Jogo removido com sucesso.");
+                return;
+            } else {
+                System.out.println("Não foi encontrado um jogo com esse nome.");
             }
         }
     }
 
+    public static String saidaDisponibilidade(Jogo jogo){ // Método que escreve uma mensagem para indicar disponibilidade com base no atributo boolean
+        if (jogo.getDisponibilidade() == true){
+            return "Jogo disponível para troca!";
+        } else {
+            return "Jogo indisponível para troca.";
+        }
+    }
+    
     public static void listarJogosDisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
-        System.out.println("\n");
         
         if (jogos.isEmpty()) {
             System.out.println("Nenhum jogo cadastrado.");
             return;
         }
 
+        System.out.println("Jogos disponíveis no momento:");
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == true){
@@ -105,13 +114,13 @@ public class Jogo {
     }
 
     public static void listarJogosIndisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
-        System.out.println("\n");
 
         if( jogos.isEmpty()) {
             System.out.println("Nenhum jogo cadastrado.");
             return;
         }
 
+        System.out.println("Jogos indisponíveis no momento:");
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == false){
@@ -129,9 +138,10 @@ public class Jogo {
             String msgDisponibilidade = saidaDisponibilidade(jogo);
             if(nomeJogo.equals(jogo.getNome())){
                 System.out.println("Nome: " + jogo.getNome() + " | Genero: " + jogo.getGenero() + " | Descrição: " + jogo.getDescricao() + " | Disponibilidade: "  + msgDisponibilidade +  " | Dono do jogo: " + jogo.getDono());
+                return;
             } 
-            else if( i == jogos.size() -1 && nomeJogo!=jogo.getNome()){
-                System.out.println("Jogo não encontrado.");
+            else {
+                System.out.println("Jogo não encontrado. Tente novamente ou cadastre seu jogo.");
             }
         }
     }
