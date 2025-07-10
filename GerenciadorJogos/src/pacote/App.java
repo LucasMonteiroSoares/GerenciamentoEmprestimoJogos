@@ -53,7 +53,6 @@ public class App {
 
                     if(opcaoAmigo == 1){ // Chama método que cadastra um amigo no sistema
                         Amigo.cadastrarAmigo();
-                
                     }
 
                     else if(opcaoAmigo == 2) { // Chama método que remove um amigo no sistema
@@ -78,7 +77,7 @@ public class App {
                 }
                 break;
 
-                case 2:
+                case 2: // Menu de Jogos
                 boolean rodandoMenuJogos = true;
                 while (rodandoMenuJogos == true) {
                     menuJogos();
@@ -93,11 +92,11 @@ public class App {
                         Jogo.removerJogo();
                     }
 
-                    else if(opcaoJogo == 3){ // Chama método que lista jogos DISPONIVEIS
+                    else if(opcaoJogo == 3){ // Chama método que lista jogos DISPONÍVEIS
                         Jogo.listarJogosDisponiveis();
                     }
 
-                    else if (opcaoJogo == 4){ // Chama método que lista jogos INDISPONIVEIS
+                    else if (opcaoJogo == 4){ // Chama método que lista jogos INDISPONÍVEIS
                         Jogo.listarJogosIndisponiveis();
                     }
 
@@ -115,12 +114,12 @@ public class App {
                 }
                 break;
                 
-                case 3:
+                case 3: // Encerrar programa
                 rodando = false;
                 System.out.println("Encerrando programa...");
                 break;
 
-                default:
+                default: // Tratamento de erro
                 System.out.println("Opção inválida!");
                 break;
             }

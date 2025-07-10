@@ -3,12 +3,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jogo {
+    // Atributos da classe jogo
     private String nome;
     private String descricao;
     private String genero;
     private boolean disponivel;
     private String dono;
 
+    // Getters, setters e constructor 
     public Jogo(String nome, String genero, String descricao, boolean disponivel, String dono){
         this.nome=nome;
         this.genero=genero;
@@ -63,8 +65,8 @@ public class Jogo {
         for(int i = 0; i<Amigo.amigos.size(); ++i){
             Amigo dono = Amigo.amigos.get(i); 
             if(donoJogo.equals(dono.getNome())){
-                jogos.add(new Jogo(nomeJogo, generoJogo, descricaoJogo, disponibilidadeJogo, donoJogo));
-                dono.adicionarJogosPossuidos(nomeJogo);
+                jogos.add(new Jogo(nomeJogo, generoJogo, descricaoJogo, disponibilidadeJogo, donoJogo)); 
+                dono.adicionarJogosPossuidos(nomeJogo); // Atribui jogo cadastrado a um amigo também cadastrado
                 System.out.println("Jogo cadastrado com sucesso.");  
                 return;
             } else if (i == Amigo.amigos.size() - 1 && donoJogo.equals(dono.getNome()) == false){
@@ -74,12 +76,23 @@ public class Jogo {
     }
 
     public static void removerJogo(){ // Método que remove jogos cadastrados no sistema
+        if(jogos.isEmpty()) {
+            System.out.println("Nenhum jogo foi cadastrado.");
+            return;
+        }
+        
         System.out.println("Removendo jogo...");
         System.out.println("Informe o nome do jogo que deseja remover: ");
         String remover = sc.nextLine();
-        for(int i = 0; i< jogos.size(); ++i){
+
+        for(int i = 0; i<Amigo.amigos.size(); ++i){
+            Amigo amigo = Amigo.amigos.get(i);
+            amigo.removerJogosPossuidos(remover); // Remove atribuição de jogo a amigo também
+        }
+
+        for(int i = 0; i<jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
-            if (jogo.getNome().equals(remover)){ // Utilizei EQUALS por conta de ser comparação de strings
+            if (jogo.getNome().equals(remover)){ 
                 jogos.remove(i);
                 System.out.println("Jogo removido com sucesso.");
                 return;
@@ -98,41 +111,53 @@ public class Jogo {
     }
     
     public static void listarJogosDisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
-        
         if (jogos.isEmpty()) {
-            System.out.println("Nenhum jogo cadastrado.");
+            System.out.println("Nenhum jogo foi cadastrado.");
             return;
         }
 
+        boolean listaVazia = true;
         System.out.println("Jogos disponíveis no momento:");
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == true){
             System.out.println("Nome: " + jogo.getNome() + " | Genero: " + jogo.getGenero() + " | Descrição: " + jogo.getDescricao() + " | Disponibilidade: Disponível para troca!" + " | Dono do jogo: " + jogo.getDono());
+            listaVazia = false;
+            } else if (i == jogos.size() -1 && jogo.getDisponibilidade() == false && listaVazia == true){
+                System.out.println("Nenhum jogo disponível no momento.");
             }
         }
     }
 
-    public static void listarJogosIndisponiveis(){ // Método que lista todos jogos cadastrados disponíveis para empréstimo
-
-        if( jogos.isEmpty()) {
-            System.out.println("Nenhum jogo cadastrado.");
+    public static void listarJogosIndisponiveis(){ // Método que lista todos jogos cadastrados indisponíveis para empréstimo
+        if(jogos.isEmpty()) {
+            System.out.println("Nenhum jogo foi cadastrado.");
             return;
         }
 
+        boolean listaVazia = true;
         System.out.println("Jogos indisponíveis no momento:");
         for(int i = 0; i< jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             if(jogo.getDisponibilidade() == false){
             System.out.println("Nome: " + jogo.getNome() + " | Genero: " + jogo.getGenero() + " | Descrição: " + jogo.getDescricao() + " | Disponibilidade: Não está disponível para troca."  + " | Dono do jogo: " + jogo.getDono());
+            listaVazia = false;
+            } else if (i == jogos.size() -1 && jogo.getDisponibilidade() == true && listaVazia == true){
+                System.out.println("Nenhum jogo indisponível!");
             }
         }
     }
 
-    public static void buscaJogo(){ // Método que busca jogo pelo nome
+    public static void buscaJogo(){ // Método que busca jogo pelo nome e traz informações
+        if(jogos.isEmpty()){
+            System.out.println("Nenhum jogo foi cadastrado.");
+            return;
+        }
+        
         System.out.println("Informe o nome do jogo que deseja buscar: ");
         String nomeJogo = sc.nextLine();
         System.out.println("\n");
+
         for (int i = 0; i<jogos.size(); ++i){
             Jogo jogo = jogos.get(i);
             String msgDisponibilidade = saidaDisponibilidade(jogo);
