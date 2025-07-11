@@ -96,7 +96,7 @@ public class Jogo {
                 jogos.remove(i);
                 System.out.println("Jogo removido com sucesso.");
                 return;
-            } else {
+            } if (i == jogos.size()-1){
                 System.out.println("Não foi encontrado um jogo com esse nome.");
             }
         }
@@ -165,7 +165,7 @@ public class Jogo {
                 System.out.println("Nome: " + jogo.getNome() + " | Genero: " + jogo.getGenero() + " | Descrição: " + jogo.getDescricao() + " | Disponibilidade: "  + msgDisponibilidade +  " | Dono do jogo: " + jogo.getDono());
                 return;
             } 
-            else {
+            if(i==jogos.size()-1) {
                 System.out.println("Jogo não encontrado. Tente novamente ou cadastre seu jogo.");
             }
         }
